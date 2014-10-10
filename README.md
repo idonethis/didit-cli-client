@@ -1,6 +1,6 @@
 # DidIt CLI Client
 
-A simple iDoneThis command line client that can post dones for you. To configure, you need your API token.
+A simple iDoneThis command line client that can post dones for you. To configure, you need [your API token](https://idonethis.com/api/token/).
 
 Call as `./didit.rb`.
 
