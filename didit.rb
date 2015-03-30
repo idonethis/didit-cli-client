@@ -167,8 +167,6 @@ if __FILE__ == $PROGRAM_NAME
             puts "Configuration doesn't work, giving up."
             Kernel.abort()
         end
-    else
-        puts "Call with '--reset' do reset your configuration."
     end
 
     # we should be able to post dones to our favorite team now!
