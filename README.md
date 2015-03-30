@@ -22,9 +22,11 @@ Call as `./didit.rb` from didit folder - OR - set path variable:
 The client will continue asking you for done entries until you simply hit enter.
 
 Alternatively, a done entry may be passed as a commandline argument, e.g.:
+
   `./didit.rb "I made some great pasta sauce."`
 
 Should you ever need to reset your configuration file, simply do:
+
   `./didit.rb --reset`
 
 This client is written in Ruby and serves as a quick example on how one could use the iDoneThis API.
