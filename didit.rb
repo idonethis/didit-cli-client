@@ -25,10 +25,10 @@ def load_configuration()
 end
 
 def config_works()
-    if not defined? $did_config then
+    if not defined? $did_config
         return false
     end
-    if not $did_config[:API_TOKEN] or not $did_config[:TEAM_URL] then
+    if not $did_config[:API_TOKEN] or not $did_config[:TEAM_URL]
         return false
     end
     team = read_team()
@@ -36,7 +36,7 @@ def config_works()
 end
 
 def recreate_configuration()
-    if File.exist? CONFIG_FILE then
+    if File.exist? CONFIG_FILE
         delete_configuration()
         f = File.new(CONFIG_FILE, "w")
         f.close()
@@ -57,7 +57,7 @@ def recreate_configuration()
         req['Content-Type'] = 'application/json'
         req['Authorization'] = 'Token ' + api_token
         res = client.start { |http| http.request(req) }
-        if res.code != '200' then
+        if res.code != '200'
             puts "Something went wrong finding your teams, HTTP status code was #{res.code}. API token '#{api_token}' correct? "
             Kernel.abort()
         end
@@ -90,11 +90,11 @@ def discover_urls()
     req = Net::HTTP::Get.new(url)
     req['Content-Type'] = 'application/json'
     res = client.start { |http| http.request(req) }
-    if res.code != '200' then
+    if res.code != '200'
         return false
     end
     endpoints = JSON.parse(res.body)
-    if not endpoints['teams'] or not endpoints['dones'] then
+    if not endpoints['teams'] or not endpoints['dones']
         return false
     end
     $endpoints[:TEAMS_ENDPOINT] = endpoints['teams']
@@ -110,7 +110,7 @@ def read_team()
     req['Authorization'] = 'Token ' + $did_config[:API_TOKEN]
     req['Content-Type'] = 'application/json'
     res = client.start { |http| http.request(req) }
-    if res.code != '200' then
+    if res.code != '200'
         return false
     end
     team = JSON.parse(res.body)
@@ -119,7 +119,7 @@ end
 
 def enter_done()
     done_text = ask("What did you get done? ")
-    if done_text.length < 1 then
+    if done_text.length < 1
         puts "Seems you're done, quitting! "
         Kernel.abort()
     end
@@ -135,7 +135,7 @@ def post_done(done_text)
     req['Content-Type'] = 'application/json'
     req['Authorization'] = 'Token ' + $did_config[:API_TOKEN]
     res = client.start { |http| http.request(req) }
-    if res.code != '201' then
+    if res.code != '201'
         puts "Something went wrong posting your done, HTTP status code was #{res.code}. API token '#{$did_config[:API_TOKEN]}' correct? "
         Kernel.abort()
     else
@@ -146,14 +146,14 @@ end
 ### main application ###
 
 if __FILE__ == $PROGRAM_NAME
-    if ARGV[0] and ARGV[0] == '--reset' then
+    if ARGV[0] and ARGV[0] == '--reset'
         puts "Deleting configuration ..."
         delete_configuration()
     end
 
     # try to load the configuration file
     load_configuration()
-    if not discover_urls() then
+    if not discover_urls()
         puts "Couldn't discover URLs! "
         Kernel.abort()
     end
@@ -163,7 +163,7 @@ if __FILE__ == $PROGRAM_NAME
         recreate_configuration()
         load_configuration()
         # fail if it still doesn't work
-        if not config_works() then
+        if not config_works()
             puts "Configuration doesn't work, giving up."
             Kernel.abort()
         end
