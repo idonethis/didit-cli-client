@@ -145,32 +145,36 @@ end
 
 ### main application ###
 
-if ARGV[0] and ARGV[0] == '--reset' then
-    puts "Deleting configuration ..."
-    delete_configuration()
-end
+if __FILE__ == $PROGRAM_NAME
+    if ARGV[0] and ARGV[0] == '--reset' then
+        puts "Deleting configuration ..."
+        delete_configuration()
+    end
 
-# try to load the configuration file
-load_configuration()
-if not discover_urls() then
-    puts "Couldn't discover URLs! "
-    Kernel.abort()
-end
-
-# if the configuration doesn't work, delete it and create it again
-if not config_works()
-    recreate_configuration()
+    # try to load the configuration file
     load_configuration()
-    # fail if it still doesn't work
-    if not config_works() then
-        puts "Configuration doesn't work, giving up."
+    if not discover_urls() then
+        puts "Couldn't discover URLs! "
         Kernel.abort()
     end
-else
-    puts "Call with '--reset' do reset your configuration."
+
+    # if the configuration doesn't work, delete it and create it again
+    if not config_works()
+        recreate_configuration()
+        load_configuration()
+        # fail if it still doesn't work
+        if not config_works() then
+            puts "Configuration doesn't work, giving up."
+            Kernel.abort()
+        end
+    else
+        puts "Call with '--reset' do reset your configuration."
+    end
+
+    # we should be able to post dones to our favorite team now!
+    while true do
+        enter_done()
+    end
 end
 
-# we should be able to post dones to our favorite team now!
-while true do
-    enter_done()
-end
+
