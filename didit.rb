@@ -172,8 +172,14 @@ if __FILE__ == $PROGRAM_NAME
     end
 
     # we should be able to post dones to our favorite team now!
-    while true do
-        enter_done()
+    # if a string was provided as an arg, just post it.
+    # otherwise, accept inputs in a loop (old behavior)
+    if ARGV[0] and ARGV[0] != '--reset'
+        post_done(ARGV[0])
+    else
+        while true do
+            enter_done()
+        end
     end
 end
 
