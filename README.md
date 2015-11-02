@@ -31,4 +31,13 @@ Should you ever need to reset your configuration file, simply do:
 
   `./didit.rb --reset`
 
+### Adding goals
+For adding goals, prefix the input with `[] `. Example:
+
+```
+What did you get done? [] This is my goal
+```
+
+would create a new goal `This is my goal`
+
 This client is written in Ruby and serves as a quick example on how one could use the iDoneThis API.
