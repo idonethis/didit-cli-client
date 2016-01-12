@@ -173,7 +173,7 @@ if __FILE__ == $PROGRAM_NAME
     # if a string was provided as an arg, just post it.
     # otherwise, accept inputs in a loop (old behavior)
     if ARGV[0] and ARGV[0] != '--reset'
-        post_done(ARGV[0])
+        post_done(ARGV.join(' ' ))
     else
         while true do
             enter_done()
