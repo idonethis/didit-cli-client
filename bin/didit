@@ -1,3 +1,7 @@
 #!/bin/bash
 
-ruby didit.rb "$*"
+if [ "$*" == "" ]; then
+  ruby didit.rb
+else
+  ruby didit.rb "$*"
+fi
